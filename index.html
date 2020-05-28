@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    <link href="./index.css" rel="stylesheet" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <ul class="main-menu">
+        <li id="news">News</li>
+        <li>|</li>
+        <li id="newest">Newest</li>
+        <li>|</li>
+        <li id="ask">Ask</li>
+        <li>|</li>
+        <li id="show">Show</li>
+        <li>|</li>
+        <li id="jobs">Jobs</li>
+      </ul>
+      <ul class="list-group"></ul>
+    </div>
+    <div id="main"></div>
+    <div style="text-align:center;">
+    <input type="button" id="first" onclick="firstPage()" value="first" />
+    <input type="button" id="next" onclick="nextPage()" value="next" />
+    <input type="button" id="previous" onclick="previousPage()" value="previous" />
+    <input type="button" id="last" onclick="lastPage()" value="last" />
+
+    <div id="list"></div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+    <figure class="highcharts-figure">
+        <div id="container"></div>
+        <p class="highcharts-description">
+            Basic line chart showing trends in a dataset. This chart includes the
+            <code>series-label</code> module, which adds a label to each line for
+            enhanced readability.
+        </p>
+    </figure>
+
+    <script src="./custom.js"></script>
+  </body>
+</html>
