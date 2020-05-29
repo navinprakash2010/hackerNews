@@ -13,28 +13,19 @@
     <title>Document</title>
   </head>
   <body>
-    <div class="container">
+    <div class="container" id="top">
       <ul class="main-menu">
-        <li id="news">News</li>
-        <li>|</li>
-        <li id="newest">Newest</li>
-        <li>|</li>
-        <li id="ask">Ask</li>
-        <li>|</li>
-        <li id="show">Show</li>
-        <li>|</li>
-        <li id="jobs">Jobs</li>
+        <li>Comments</li>
+        <li>Vote Counts</li>
+        <li>Up Vote</li>
+        <li>News Details</li>
+        <li><a href="#down">Map</a></li>
       </ul>
+      <span id="results"></span>
       <ul class="list-group"></ul>
     </div>
     <div id="main"></div>
-    <div style="text-align:center;">
-    <input type="button" id="first" onclick="firstPage()" value="first" />
-    <input type="button" id="next" onclick="nextPage()" value="next" />
-    <input type="button" id="previous" onclick="previousPage()" value="previous" />
-    <input type="button" id="last" onclick="lastPage()" value="last" />
 
-    <div id="list"></div>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -44,12 +35,13 @@
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
     <figure class="highcharts-figure">
-        <div id="container"></div>
-        <p class="highcharts-description">
-            Basic line chart showing trends in a dataset. This chart includes the
-            <code>series-label</code> module, which adds a label to each line for
-            enhanced readability.
-        </p>
+      <div id="down"><a href="#top">Top ⬆</a></div>
+      <div id="container"></div>
+      <p class="highcharts-description">
+        Basic line chart showing trends in a dataset. This chart includes the
+        <code>series-label</code> module, which adds a label to each line for
+        enhanced readability.
+      </p>
     </figure>
 
     <script src="./custom.js"></script>

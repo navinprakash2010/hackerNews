@@ -1,123 +1,83 @@
 var e = document.querySelector(".list-group");
 
-document.getElementById("newest").addEventListener("click", (event) => {
-  event.preventDefault();
-  e.innerHTML = "";
-  axios
-    .get("https://api.hnpwa.com/v0/newest/1.json")
-    .then((response) => {
-      createListItem(response);
-    })
-    .catch((error) => {
-      //handle error
-      console.log(error);
-    });
-});
-
-document.getElementById("news").addEventListener("click", (event) => {
-  event.preventDefault();
-  e.innerHTML = "";
-  axios
-    .get("https://api.hnpwa.com/v0/news/1.json")
-    .then((response) => {
-      createListItem(response);
-    })
-    .catch((error) => {
-      //handle error
-      console.log(error);
-    });
-});
-
-document.getElementById("ask").addEventListener("click", (event) => {
-  event.preventDefault();
-  e.innerHTML = "";
-  axios
-    .get("	https://api.hnpwa.com/v0/ask/1.json")
-    .then((response) => {
-      createListItem(response);
-    })
-    .catch((error) => {
-      //handle error
-      console.log(error);
-    });
-});
-
-document.getElementById("show").addEventListener("click", (event) => {
-  event.preventDefault();
-  e.innerHTML = "";
-  axios
-    .get("https://api.hnpwa.com/v0/show/1.json")
-    .then((response) => {
-      createListItem(response);
-    })
-    .catch((error) => {
-      //handle error
-      console.log(error);
-    });
-});
-
-document.getElementById("jobs").addEventListener("click", (event) => {
-  event.preventDefault();
-  e.innerHTML = "";
-  axios
-    .get("https://api.hnpwa.com/v0/jobs/1.json")
-    .then((response) => {
-      createListItem(response);
-    })
-    .catch((error) => {
-      //handle error
-      console.log(error);
-    });
-});
-
-window.addEventListener("load", (event) => {
-  event.preventDefault();
-  axios
-    .get("https://api.hnpwa.com/v0/news/1.json")
-    .then((response) => {
-      createListItem(response);
-    })
-    .catch((error) => {
-      //handle error
-      console.log(error);
-    });
-});
+axios
+  .get("https://api.hnpwa.com/v0/news/1.json")
+  .then((response) => {
+    createListItem(response);
+  })
+  .catch((error) => {
+    //handle error
+    console.log(error);
+  });
 
 function createListItem(response) {
   var id_array = [];
   var points_array = [];
-  console.log(response.data);
+
   response.data.forEach(function (listItem) {
+    var ids = parseInt(listItem.id);
+    var up = 0;
+
+    //storing data in array from map
     id_array.push(listItem.id);
-    points_array.push(listItem.points);
-    console.log(id_array + " - " + points_array);
+    points_array.push(listItem.comments_count);
 
     //create list items
     var li = document.createElement("li");
     li.setAttribute("class", "list-group-item");
 
-    var textNode = document.createTextNode(" points");
-    //element.appendChild(textNode);
+    //create child list items
+    var childLi = document.createElement("li");
+    li.setAttribute("class", "list-group-item-child");
 
-    //create badge
-    var span = document.createElement("span");
-    span.setAttribute("class", "badge badge-primary");
-    span.innerHTML = listItem.points;
-    span.appendChild(textNode);
-    // li.appendChild(anchor);
+    //create sub comment count
+    var points = document.createElement("span");
+    points.setAttribute("class", "badge badge-primary");
+    points.innerHTML = listItem.comments_count;
+
+    //create voting button
+    var upVote = document.createElement("button");
+    upVote.setAttribute("type", "button");
+    upVote.setAttribute("id", `b-${ids}`);
+    upVote.innerHTML = "⬆";
+
+    //create voting count
+    var count = document.createElement("span");
+    count.setAttribute("class", "badge badge-primary");
+    count.innerHTML = "0";
+
+    function refreshResults() {
+      //var results = document.getElementById("results");
+      //results.innerHTML = "total: " + up;
+      count.innerHTML = up;
+    }
+    setTimeout(() => {
+      document
+        .getElementById(`b-${ids}`)
+        .addEventListener("click", function () {
+          up++;
+          //total++;
+          refreshResults();
+        });
+    }, 1000);
 
     //create anchor
     var anchor = document.createElement("a");
     anchor.setAttribute("href", listItem.url);
     anchor.setAttribute("target", "__blank");
     anchor.innerHTML = listItem.title;
-    anchor.appendChild(span);
 
-    li.appendChild(anchor);
+    childLi.appendChild(anchor);
+    childLi.prepend(upVote);
+    childLi.prepend(count);
+    childLi.prepend(points);
+
+    li.appendChild(childLi);
 
     document.querySelector(".list-group").appendChild(li);
   });
 
+  //Chart
   Highcharts.chart("container", {
     title: {
       text: "Hacker News App",
